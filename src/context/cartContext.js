@@ -31,6 +31,7 @@ const CartContext = createContext()
   
       case actionTypes.DECREMENT:
         const decrementItem = state.cartList.find(item => item.id === action.payload.id);
+        if (decrementItem && decrementItem.quantity === 1) state.cartList.filter(item => item.id !== action.payload.id);
         if (decrementItem && decrementItem.quantity > 1) decrementItem.quantity--;
         return { ...state, cartList: [...state.cartList] };
   
@@ -43,7 +44,7 @@ const CartContext = createContext()
   }
 
   export const CartProvider = ({children}) => {
-    const {state, dispatch} = useReducer(cartReducer, initialState)
+    const [state, dispatch] = useReducer(cartReducer, initialState)
 
   return (
     <CartContext.Provider value={{state, dispatch}}>
