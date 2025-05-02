@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
-      <div className="max-w-screen-xl mx-auto px-6">
+    <div className="w-screen bg-gray-800 text-white py-8 mt-4">
+      <div className="w-full flex flex-wrap">
         <div className="flex flex-wrap justify-between">
           {/* About Section */}
           <div className="w-full sm:w-1/3 mb-6 sm:mb-0">
@@ -30,7 +30,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-    </footer>
+    </div>
   )
 }
 
