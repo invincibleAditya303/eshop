@@ -69,17 +69,17 @@ const ProductDetails = props => {
     const renderSuccessView = () => {
         console.log(apiResponse.data)
         const {data} = apiResponse
-        const {title, image, description, price, rating} = data
+        const {title, image, price, rating} = data
+        const bgColor = state.isDarkModeOn ? 'bg-[#0f0f0f]' : 'bg-[#d8b7ed]'
         
         return (
-            <div className="w-[55vw] h-[70vh] flex justify-center items-center bg-[#d8b7ed] mt-8">
+            <div className={`w-[55vw] h-[40vh] flex justify-center items-center ${bgColor} mt-8`}>
                 <img src={image} alt={title} className="w-[25vw] h-9/10" />
                 <div className=" w-[25vw] h-full flex flex-col justify-between mt-4 mb-4">
-                    <h1 className="text-4xl text-[#ffffff] font-[Roboto] pb-4 pl-4">{title}</h1>
-                    <p className="text-sm text-[#ffffff] font-[Roboto] pb-4 pl-4">{description}</p>
+                    <h1 className="text-3xl text-[#ffffff] font-[Roboto] pb-4 pl-4">{title}</h1>
                     <p className="text-2xl text-[#ffffff] font-[Roboto] pb-4 pl-4">{price}</p>
                     <p className="text-2xl text-[#ffffff] font-[Roboto] pb-4 pl-4">{rating.rate}</p>
-                    <button type="button" className="w-[10vw] h-[24px] bg-[#306acf] text-[#ffffff] text-sm font-[Roboto] p-auto ml-4 mb-4 rounded-md" onClick={() => addCartItem({...data, quantity: 1})}>Add to Cart</button>
+                    <button type="button" className="w-[13vw] h-[24px] bg-[#306acf] text-[#ffffff] text-sm font-[Roboto] p-auto ml-4 mb-4 rounded-md" onClick={() => addCartItem({...data, quantity: 1})}>Add to Cart</button>
                 </div>
             </div>
         )

@@ -6,9 +6,9 @@ const ProductListItem = props => {
 
     return (
         <Link to={`/products/${id}`}>
-            <li className="w-[30vw] h-[25vh] bg-white mr-4 mb-4 list-none">
+            <li className="w-[30vw] h-[27vh] bg-white mr-4 mb-4 list-none">
                 <img src={image} alt={title} className="w-full h-[20vh]" />
-                <p className="text-xl sm:text-lg font-roboto pt-2">{title}</p>
+                <p className="text-lg sm:text-sm font-roboto pt-2">{title}</p>
             </li>
         </Link>
     )

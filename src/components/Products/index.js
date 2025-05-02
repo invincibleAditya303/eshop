@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import {RingLoader} from 'react-spinners'
 
 import Header from '../Header'
 
 import ProductListItem from "../ProductListItem";
+import { CartContext } from "../../context/cartContext";
 
 const apiStatusConstants = {
     initial: "INITIAL",
@@ -14,6 +15,9 @@ const apiStatusConstants = {
 }
 
 const Products = () => {
+    const {state} = useContext(CartContext)
+    console.log(state.isDarkModeOn)
+
     const [apiResponse, setApiResponse] = useState({
         status: apiStatusConstants.initial,
         data: null,
@@ -53,9 +57,10 @@ const Products = () => {
 
     const renderSuccessView  = () => {
         console.log(apiResponse.data)
+        const bgColor = state.isDarkModeOn ? 'bg-[#0f0f0f]' : 'bg-[#c695E5]'
 
         return (
-            <div className="w-screen bg-[#c695E5] flex justify-center items-center ">
+            <div className={`w-screen ${bgColor} flex justify-center items-center`}>
                 <ul className="pl-[0px] w-[70vw] flex justify-center items-center flex-wrap min-height-[80vh]">
                     {apiResponse.data.map(eachProduct => (
                         <ProductListItem productDetails={eachProduct} key={eachProduct.id} />

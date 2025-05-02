@@ -1,6 +1,9 @@
+import React, {useContext} from 'react'
+
 import Header from '../Header'
 
 import Footer from '../Footer'
+import { CartContext } from '../../context/cartContext'
 
 const featuredProductList = [
   {
@@ -28,11 +31,16 @@ const featuredProductList = [
   }
 ]
 
-const Home = () => (
+const Home = () => {
+  const {state} = useContext(CartContext)
+
+  const bgColor = state.isDarkModeOn ? 'bg-[#0f0f0f]' : ''
+  const textColor = state.isDarkModeOn ? 'text-[#ffffff]': 'text-black'
+  return (
     <>
         <Header />
-        <div className='w-screen min-h-[90vh] flex flex-col items-center mt-4'>
-            <div className='w-[70vw] h-[50vh]'>
+        <div className={`w-screen min-h-[90vh] ${bgColor} flex flex-col items-center`}>
+            <div className='w-[70vw] h-[50vh] mt-4'>
                 <img src='https://res.cloudinary.com/dtrjr55q7/image/upload/v1746093885/Card_prdt8s.jpg' className='h-[30vh] w-full' alt='hero section'  />
             </div>
             <h1 className='text-xl font-[Roboto] self-start pb-4'>Featured Products</h1>
@@ -40,13 +48,14 @@ const Home = () => (
                 {featuredProductList.map(eachProduct => 
                     <li className='h-full w-[20vw] mr-4' key={eachProduct.id}>
                         <img src={eachProduct.image} alt={eachProduct.category} className='w-full h-[25vh]' />
-                        <p className='text-lg font-[Roboto]'>{eachProduct.category}</p>
+                        <p className={`${textColor} text-lg font-[Roboto]`}>{eachProduct.category}</p>
                     </li>
                 )}
             </ul>
             <Footer />
         </div>
     </>
-)
+  )
+}
 
 export default Home

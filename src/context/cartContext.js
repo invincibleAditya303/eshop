@@ -2,7 +2,7 @@ import React, {createContext, useReducer} from 'react'
 
 const initialState = {
     cartList: JSON.parse(localStorage.getItem('cartList')) || [],
-    isDarkModeOn: false,
+    isDarkModeOn: JSON.parse(localStorage.getItem('isDarkModeOn')) || false,
 }
 
 const CartContext = createContext()
@@ -31,16 +31,21 @@ const CartContext = createContext()
         return { ...state, cartList: [...state.cartList] };
   
       case actionTypes.DECREMENT:
-        const decrementItem = state.cartList.find(item => item.id === action.payload.id);
-        if (decrementItem && decrementItem.quantity === 1) {
-          state.cartList.filter(item => item.id !== decrementItem.id)
-          return {...state, cartList: [...state.cartList]}
-        };
-        if (decrementItem && decrementItem.quantity > 1) decrementItem.quantity--;
-        return { ...state, cartList: [...state.cartList] };
-  
+        const updatedCartList = state.cartList.map(item => {
+          if (item.id === action.payload.id) {
+            if (item.quantity === 1) {
+              return null;
+            } else {
+              return { ...item, quantity: item.quantity - 1 }
+            }
+          }
+          return item;
+        }).filter(item => item !== null)
+      
+        return { ...state, cartList: updatedCartList }
       case actionTypes.TOGGLE_DARK_MODE:
-        return { ...state, isDarkModeOn: !state.isDarkModeOn };
+        const newDarkModeStatus = !state.isDarkModeOn;
+        return { ...state, isDarkModeOn: newDarkModeStatus }
   
       default:
         return state;
