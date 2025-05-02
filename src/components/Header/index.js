@@ -58,9 +58,9 @@ const Header = () => {
                     <div className="absolute right-0 mt-2 w-[40vw] bg-white shadow-lg rounded-md z-10">
                         <div className="w-full h-[5vh] flex justify-between items-center p-4">
                             <Link to="/cart">
-                                <button className="h-[3vh] w-[6vw] bg-[#306acf] p-auto text-[#ffffff">View Cart</button>
+                                <button className="h-[3vh] w-[6vw] bg-[#306acf] p-auto text-[#ffffff] text-sm">View Cart</button>
                             </Link>
-                            <button className="h-[3vh] w-[6vw] bg-[#306acf] p-auto text-[#ffffff">Checkout</button>
+                            <button className="h-[3vh] w-[6vw] bg-[#306acf] p-auto text-[#ffffff] text-sm">Checkout</button>
                         </div>
                         <div className="p-4">
                             <p className="text-lg font-semibold">Your Cart</p>
