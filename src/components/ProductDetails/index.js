@@ -15,7 +15,7 @@ const apiStatusConstants = {
 
 const ProductDetails = props => {
     const {state, dispatch} = useContext(CartContext)
-    console.log(state, dispatch)
+    console.log(state)
    
 
     const addCartItem = (product) => {
@@ -61,6 +61,10 @@ const ProductDetails = props => {
         }
         getProductDetails()
     }, [props])
+
+    useEffect(() => {
+        localStorage.setItem('cartList', JSON.stringify(state.cartList));
+      }, [state.cartList])
 
     const renderSuccessView = () => {
         console.log(apiResponse.data)

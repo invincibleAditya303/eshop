@@ -21,7 +21,7 @@ const Header = () => {
                 </Link>
                 <button className='h-full w-[6vw] bg-[#306acf] p-auto'>Check Out</button>
             </div>
-            {state && state.cartList.length > 0 && <ul className='w-full pl-[0px]'>
+            {state.cartList.length > 0 && <ul className='w-full pl-[0px]'>
                         {state.cartList.map(eachCartItem => 
                         <li className='w-full h-[2vh] flex justify-between items-center list-none' key={eachCartItem.id}>
                           <img src={eachCartItem.image} alt={eachCartItem.title} className='h-[2vh] w-[2vw]' />

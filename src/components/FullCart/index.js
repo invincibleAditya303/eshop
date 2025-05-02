@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { CartContext, actionTypes } from "../../context/cartContext";
 import Header from "../Header";
 
 const FullCart = () => {
     const {state, dispatch} = useContext(CartContext)
+    console.log(state)
 
     const onIncrementItemQuantity = (id) => {
         dispatch({ type: actionTypes.INCREMENT, payload: { id } });
@@ -13,14 +14,9 @@ const FullCart = () => {
         dispatch({ type: actionTypes.DECREMENT, payload: { id } });
       };
 
-      if (!state) {
-        return (
-        <>
-        <Header />
-        <div>Loading...</div>
-        </>
-        )
-      }
+      useEffect(() => {
+        localStorage.setItem('cartList', JSON.stringify(state.cartList));
+      }, [state.cartList])
 
     return (
         <>
@@ -29,15 +25,15 @@ const FullCart = () => {
                 {state.cartList.length === 0 && <p>Cart list is empty</p>}
                 {state.cartList.length > 0 && <ul className="w-[70vw] pl-[0px]">
                     {state.cartList.map(eachCartItem => 
-                        <li className="w-full h-[10vh] bg-[#ffffff] flex justify-between items-center mt-4">
+                        <li className="w-full h-[10vh] bg-[#ffffff] flex justify-between items-center mt-4" key={eachCartItem.id}>
                             <div className="h-full w-[10vw]">
                                 <img src={eachCartItem.image} alt={eachCartItem.title} className="h-[5vh] w-[5vw]" />
                                 <p className="text-lg font-[Roboto]">{eachCartItem.price}x{eachCartItem.quantity}=({eachCartItem.price}*{eachCartItem.quantity})</p>
                             </div>
-                            <div>
-                                <button className="h-[5vh] w-[2vw] bg-[#e6230e] p-auto" onClick={() => onDecrementItemQuantity(eachCartItem.id)}>-</button>
+                            <div className="w-[120px] h-full flex justify-between items-center mr-4">
+                                <button className="h-[3vh] w-[2.5vw] bg-[#e6230e] p-auto" onClick={() => onDecrementItemQuantity(eachCartItem.id)}>-</button>
                                 <p className="text-lg font-[Roboto]">{eachCartItem.quantity}</p>
-                                <button className="h-[5vh] w-[2vw] bg-[#1bcc1b] p-auto" onClick={() => onIncrementItemQuantity(eachCartItem.id)}>+</button>
+                                <button className="h-[3vh] w-[2.5vw] bg-[#1bcc1b] p-auto" onClick={() => onIncrementItemQuantity(eachCartItem.id)}>+</button>
                             </div>
                         </li>
                     )}

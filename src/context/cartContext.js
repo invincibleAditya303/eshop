@@ -1,7 +1,7 @@
 import React, {createContext, useReducer} from 'react'
 
 const initialState = {
-    cartList: [],
+    cartList: JSON.parse(localStorage.getItem('cartList')) || [],
     isDarkModeOn: false,
 }
 
@@ -21,8 +21,9 @@ const CartContext = createContext()
         if (existingItem) {
           existingItem.quantity++;
           return { ...state, cartList: [...state.cartList] };
+        }else {
+          return { ...state, cartList: [...state.cartList, { ...action.payload, quantity: 1 }] };
         }
-        return { ...state, cartList: [...state.cartList, { ...action.payload, quantity: 1 }] };
   
       case actionTypes.INCREMENT:
         const incrementItem = state.cartList.find(item => item.id === action.payload.id);
@@ -31,7 +32,10 @@ const CartContext = createContext()
   
       case actionTypes.DECREMENT:
         const decrementItem = state.cartList.find(item => item.id === action.payload.id);
-        if (decrementItem && decrementItem.quantity === 1) state.cartList.filter(item => item.id !== action.payload.id);
+        if (decrementItem && decrementItem.quantity === 1) {
+          state.cartList.filter(item => item.id !== decrementItem.id)
+          return {...state, cartList: [...state.cartList]}
+        };
         if (decrementItem && decrementItem.quantity > 1) decrementItem.quantity--;
         return { ...state, cartList: [...state.cartList] };
   
